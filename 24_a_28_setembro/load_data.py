@@ -41,7 +41,7 @@ def format_fields(vals, *args):
 
 
 def save_org(vals):
-    e = get_field(vals, 'E').title().strip()
+    e = get_field(vals, 'E').strip()
     d = get_field(vals, 'D').strip()
 
     if d:
@@ -199,7 +199,6 @@ E-mail: {V}
     o.description = desc
     o.contact = contact
     o.link = link
-    o.category = categorias
     o.creation_date = now
     o.creator = creator
     o.save()
@@ -211,6 +210,8 @@ E-mail: {V}
     for p in public:
         p, c = TargetAudience.objects.get_or_create(name=p)
         o.target_audiences.add(p)
+    for cat in categorias:
+        o.categories.add(cat)
 
     proj_slug = get_field(vals, 'BE').split('/')[-1]
     if proj_slug:
@@ -222,7 +223,7 @@ E-mail: {V}
 
 
 def save_resource(vals):
-    e = get_field(vals, 'E').title().strip()
+    e = get_field(vals, 'E').strip()
     d = get_field(vals, 'D').strip()
 
     if d:
